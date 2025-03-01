@@ -16,23 +16,6 @@ window.addEventListener('load', function () {
     window.scrollTo(0, 0);
 });
 
-// Smooth scroll function
-function smoothScroll() {
-    if (!isScrolling) return;
-
-    let currentScroll = window.scrollY;
-    let difference = targetScroll - currentScroll;
-    
-    if (Math.abs(difference) < 0.5) {
-        window.scrollTo(0, targetScroll);
-        isScrolling = false;
-        return;
-    }
-
-    window.scrollBy(0, difference * 0.1); // Smoothly interpolate
-    requestAnimationFrame(smoothScroll);
-}
-
 // Custom scroll handler
 document.addEventListener("wheel", function (event) {
     if (isZooming || isScrollingUpWhileTextAnimating()) {
