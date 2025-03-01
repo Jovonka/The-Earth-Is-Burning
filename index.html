@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parallax Scroll</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Intro Section -->
+    <section class="intro">
+        <h1 class="scroll-text">The Earth Is Burning</h1>
+    </section>
+
+    <!-- First Parallax Section -->
+    <section class="parallax-section zoom-section">
+        <div class="parallax-bg"></div>
+        <img src="images/Cloud 1.png" class="parallax-asset asset01">
+        <img src="images/Cloud 2.png" class="parallax-asset asset02">
+        <img src="images/asset1.png" class="parallax-asset asset1">
+        <img src="images/asset2.png" class="parallax-asset asset2">
+        <img src="images/TOP.png" class="parallax-asset asset202">
+        <img src="images/asset3.png" class="parallax-asset asset3">
+        <h2 class="scroll-in-text">but I have clothes to fold.</h2>
+        <div class="fade-overlay"></div>
+
+        <img src="images/Button1.png" class="parallax-asset asset4">
+        <button id="zoomBtn" class="zoom-button"></button>
+    </section>
+
+    <!-- Second Parallax Section (Initially Hidden) -->
+    <section class="second-parallax-section" id="secondSection" style="display: none;">
+        <h2>This is the second section after zooming in.</h2>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
