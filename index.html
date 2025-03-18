@@ -3,33 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Parallax Scroll</title>
+    <title>Page1</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://use.typekit.net/gyu8lzw.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+       /* Progress bar styles */
+       .progress-bar-container {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 10px;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            z-index: 99;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background-color: rgb(255, 249, 237);
+            border-radius: 5px;
+            z-index: 60;
+        }
+
+        /* Parallax Sections */
+        section {
+            height: 100vh;
+        }
+        
+        /* The rest of your styles */
+        /* ... */
+    </style>
 </head>
 <body>
     <!-- Intro Section -->
     <section class="intro">
-        <h1 class="scroll-text">The Earth Is Burning</h1>
+        <h1 class="scroll-text">The Earth Is <br>Burning</h1>
         <h4 class="intro-text">A Poem by Maya Wilson <br> Project by Jovonka Johnson </h1>
         <img src="images/intro.png" class="parallax-asset2 asset0">
         <img src="images/down.gif" class="parallax-asset3 asset">
-       
     </section>
 
     <!-- First Parallax Section -->
     <section class="parallax-section zoom-section">
         <div class="parallax-bg"></div>
-        
         <img src="images/Cloud 1.png" class="parallax-asset asset01">
         <img src="images/Cloud 2.png" class="parallax-asset asset02">
         <img src="images/asset1.png" class="parallax-asset asset1">
         <img src="images/asset2.png" class="parallax-asset asset2">
         <img src="images/TOP.png" class="parallax-asset asset202">
-        <img src="images/asset3.png" class="parallax-asset asset3">
-        <h2 class="scroll-in-text">but I have clothes to fold.</h2>
+        <img src="images/asset3.gif" class="parallax-asset asset3">
+       
+        <h2 class="scroll-in-text1">But I have clothes to fold.</h2>
         <div class="fade-overlay"></div>
-
         <img src="images/Button1.png" class="parallax-asset asset4">
         <button id="zoomBtn" class="zoom-button"></button>
     </section>
@@ -38,6 +71,28 @@
     <section class="second-parallax-section" id="secondSection" style="display: none;">
         <h2>This is the second section after zooming in.</h2>
     </section>
+
+    <!-- Progress Bar -->
+    <div class="progress-bar-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <script>
+        const progressBar = document.getElementById("progressBar");
+        const secondSection = document.getElementById("secondSection");
+
+        // Function to update progress bar when scrolling
+        window.addEventListener("scroll", () => {
+            const scrollY = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollFraction = scrollY / docHeight;
+
+            // Only show progress when at least the last section is reached
+            if (scrollY >= docHeight - window.innerHeight) {
+                progressBar.style.width = (scrollFraction * 100) + "%";
+            }
+        });
+    </script>
 
     <script src="script.js"></script>
 </body>

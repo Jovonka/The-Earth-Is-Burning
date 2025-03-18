@@ -3,17 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scroll Frame PNGs</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Page2</title>
     <link rel="stylesheet" href="https://use.typekit.net/gyu8lzw.css">
     <style>
         body, html {
             margin: 0;
             padding: 0;
-            height: 5000vh; /* Increased height for slower scrolling */
+            height: 1000vh;
             font-family: "gambado-scotch", serif;
-font-weight: 700;
-font-style: normal;
+            font-weight: 700;
+            font-style: normal;
         }
 
         .scroll-container {
@@ -32,92 +31,201 @@ font-style: normal;
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-        
+            transition: opacity 1s ease-in-out;
         }
 
         .scroll-frame.hidden {
             opacity: 0;
         }
 
-        #goToIndexButton {
+        .overlay-text {
+            position: absolute;
+            top: 40%;
+            left: 10%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.525);
+            color: rgb(255, 255, 255);
+            border-radius: 9%;
+            padding: 10px;
+            font-size: 24px;
+            line-height: 1.5;
+            max-width: 300px;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        .circle-image {
+    position: absolute;
+    top: 35%;
+    left: 45%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px;
+    border: none; /* Remove border-radius */
+    display: none;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  
+    /* Glow animation */
+    animation: flashEffect 1s infinite alternate ease-in-out;
+}
+
+@keyframes flashEffect {
+    0% {
+        opacity: 1;
+     
+    }
+    100% {
+        opacity: 0.5;
+        
+    }
+}
+
+.circle-image:hover {
+    animation: none;
+    /* Enhanced glowing effect */
+    
+}
+
+.circle-image.clicked {
+    animation: none;
+    /* Maintain glowing effect after click */
+
+}
+
+
+        .progress-bar-container {
             position: fixed;
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
+            width: 80%;
+            height: 10px;
+            background-color: rgba(0, 0, 0, 0.2);
             border-radius: 5px;
-            display: none; /* Initially hidden */
         }
 
-        #goToIndexButton:hover {
-            background-color: #45a049;
-        }
-
-        /* Fade-in effect only for the first frame */
-        #frame1 {
-            opacity: 0;
-            transition: opacity 1s ease-in;
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background-color: rgb(255, 249, 237);
+            border-radius: 5px;
         }
     </style>
 </head>
 <body>
+
 <div class="scroll-container">
-    <div class="scroll-frame" id="frame1"></div>
-    <div class="scroll-frame hidden" id="frame2"></div>
+    <div class="scroll-frame fade-in" id="frame1"></div>
+    <div class="scroll-frame hidden fade-in" id="frame2"></div>
+
+    <div class="overlay-text" id="text1">Perhaps if my to-do list <br> weren’t so long, <br> I’d be more bold.</div>
+    <div class="overlay-text" id="text2">My hands are tied, <br> my brain is fried.</div>
+    <div class="overlay-text" id="text3">I just can’t find the time <br> to worry about the hell outside.</div>
+    <div class="overlay-text" id="text4">I’m concerned with me and mine.</div>
+
+    <a href="page3.html" id="circle-image-link">
+        <div class="circle-image" id="circle-image">
+            <img src="images/circle.png" alt="Circular Image">
+        </div>
+        <div class="tooltip" id="tooltip">Click here</div>
+    </a>
 </div>
 
-<button id="goToIndexButton">Go to Index</button>
+<div class="progress-bar-container">
+    <div class="progress-bar" id="progress-bar"></div>
+</div>
 
 <script>
-    const totalFrames = 6; // Number of images
-    const imagePath = "images/1/"; // Path to images
+    const totalFrames = 12;
+    const imagePath = "images/1/";
     const frame1 = document.getElementById("frame1");
     const frame2 = document.getElementById("frame2");
-    const goToIndexButton = document.getElementById("goToIndexButton");
 
     let lastFrameIndex = -1;
     let activeFrame = frame1;
     let inactiveFrame = frame2;
 
-    // Preload images to prevent flashing
+    const stanzaTexts = [
+        document.getElementById("text1"),
+        document.getElementById("text2"),
+        document.getElementById("text3"),
+        document.getElementById("text4")
+    ];
+
+    const circleImage = document.getElementById("circle-image");
+    const tooltip = document.getElementById("tooltip");
+
     const images = [];
     for (let i = 1; i <= totalFrames; i++) {
         images[i] = new Image();
         images[i].src = `${imagePath}${i}.png`;
     }
 
-    // Set the initial image for frame1 (image 1)
     frame1.style.backgroundImage = `url('${images[1].src}')`;
 
-    // Fade in the first image
     window.addEventListener("load", () => {
         frame1.style.opacity = 1;
+        stanzaTexts[0].style.opacity = 1;
     });
 
     window.addEventListener("scroll", () => {
         let scrollFraction = window.scrollY / (document.body.scrollHeight - window.innerHeight);
-
         let frameIndex = Math.min(totalFrames, Math.max(1, Math.floor(scrollFraction * totalFrames)));
+
+        const progressBar = document.getElementById("progress-bar");
+        progressBar.style.width = `${(scrollFraction * 100)}%`;
 
         if (frameIndex !== lastFrameIndex) {
             inactiveFrame.style.backgroundImage = `url('${images[frameIndex].src}')`;
             inactiveFrame.classList.remove("hidden");
             activeFrame.classList.add("hidden");
 
-            // Swap active and inactive frames
-            [activeFrame, inactiveFrame] = [inactiveFrame, activeFrame];
+            if (frameIndex < 4) {
+                stanzaTexts[0].style.opacity = 1;
+            } else {
+                stanzaTexts[0].style.opacity = 0;
+            }
 
+            if (frameIndex >= 4 && frameIndex < 7) {
+                stanzaTexts[1].style.opacity = 1;
+            } else {
+                stanzaTexts[1].style.opacity = 0;
+            }
+
+            if (frameIndex >= 7 && frameIndex < 10) {
+                stanzaTexts[2].style.opacity = 1;
+            } else {
+                stanzaTexts[2].style.opacity = 0;
+            }
+
+            if (frameIndex >= 10) {
+                stanzaTexts[3].style.opacity = 1;
+            } else {
+                stanzaTexts[3].style.opacity = 0;
+            }
+
+            if (frameIndex === totalFrames || frameIndex === totalFrames - 1) {
+                circleImage.style.display = "block";
+            } else {
+                circleImage.style.display = "none";
+            }
+
+            [activeFrame, inactiveFrame] = [inactiveFrame, activeFrame];
             lastFrameIndex = frameIndex;
         }
-
-      
     });
 
-    
+    // Tooltip visibility on hover
+    circleImage.addEventListener('mouseover', () => {
+        tooltip.style.opacity = 1;
+        tooltip.style.visibility = 'visible';
+    });
+
+    circleImage.addEventListener('mouseout', () => {
+        tooltip.style.opacity = 0;
+        tooltip.style.visibility = 'hidden';
+    });
 </script>
+
 </body>
 </html>
