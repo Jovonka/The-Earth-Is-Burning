@@ -66,7 +66,7 @@ function handleScroll() {
     const asset2 = document.querySelector(".asset2");
     const asset1 = document.querySelector(".asset1");
     const asset202  = document.querySelector(".asset202");
-    if (scrollText) scrollText.style.transform = `translateY(${scrollPos * 0.5}px)`;
+    if (scrollText) scrollText.style.transform = `translateY(${scrollPos * 0.3}px)`;
     if (asset3) asset3.style.transform = `translateY(${scrollPos * -0.07}px)`;
     if (asset202) asset202.style.transform = `translateX(${scrollPos * -0.01}px)`;
 
@@ -190,14 +190,14 @@ document.addEventListener("scroll", function () {
     const asset01 = document.querySelector(".asset01");
     if (asset01) {
         let asset01Translate = (scrollPos * 0.02); // Move to the right on scroll down
-        asset01.style.transform = `translateX(${2 + asset01Translate}%)`;
+        asset01.style.transform = `translateX(${1 + asset01Translate}%)`;
     }
 
     // Animate asset02 to move left on scroll down
     const asset02 = document.querySelector(".asset02");
     if (asset02) {
         let asset02Translate = (scrollPos * -0.02); // Move to the left on scroll down
-        asset02.style.transform = `translateX(${asset02Translate}%)`;
+        asset02.style.transform = `translateX(${ asset02Translate}%)`;
     }
 
     // When scrolling up, reset assets to their original positions

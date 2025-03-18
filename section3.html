@@ -114,10 +114,18 @@ font-style: normal;
             lastFrameIndex = frameIndex;
         }
 
-      
+        // Show the button when the last frame is reached
+        if (frameIndex === totalFrames) {
+            goToIndexButton.style.display = "block";
+        } else {
+            goToIndexButton.style.display = "none";
+        }
     });
 
-    
+    // Redirect to the index page when the button is clicked
+    goToIndexButton.addEventListener("click", () => {
+        window.location.href = "index.html"; // Adjust to your index page URL
+    });
 </script>
 </body>
 </html>
