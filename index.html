@@ -45,6 +45,11 @@
     </style>
 </head>
 <body>
+    <audio id="background-audio" autoplay loop>
+        <source src="audio/345313__embracetheart__city-traffic-outdoor.wav" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    
     <!-- Intro Section -->
     <section class="intro">
         <h1 class="scroll-text">The Earth Is <br>Burning</h1>
@@ -93,7 +98,20 @@
             if (scrollY >= docHeight - window.innerHeight) {
                 progressBar.style.width = (scrollFraction * 100) + "%";
             }
+            
         });
+        document.addEventListener('DOMContentLoaded', () => {
+        const audio = document.getElementById("background-audio");
+        audio.volume = 0.3; // Set volume to 50%
+
+        // Attempt to play audio only after user interaction
+        document.body.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play().catch(error => console.log("Autoplay blocked:", error));
+            }
+        });
+    });
+    
     </script>
 
     <script src="script.js"></script>

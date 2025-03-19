@@ -58,7 +58,10 @@
     </style>
 </head>
 <body>
-
+    <audio id="background-audio" autoplay loop>
+        <source src="audio/water.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
 <div class="scroll-container">
     <div class="scroll-frame fade-in" id="frame1"></div>
     <div class="scroll-frame hidden fade-in" id="frame2"></div>
@@ -126,6 +129,17 @@
             }, 1000); // Adjust the delay if needed
         }
     }, scrollSpeed); // Initial scroll speed
+    document.addEventListener('DOMContentLoaded', () => {
+        const audio = document.getElementById("background-audio");
+        audio.volume = 0.5; // Set volume to 50%
+
+        // Attempt to play audio only after user interaction
+        document.body.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play().catch(error => console.log("Autoplay blocked:", error));
+            }
+        });
+    });
 </script>
 
 </body>
