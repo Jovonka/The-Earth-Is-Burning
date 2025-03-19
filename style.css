@@ -107,8 +107,7 @@ body, html {
     height: 100%;
     opacity: 1;
     transform: none; /* Removed transition delay for transform */
-    mix-blend-mode: color-dodge; /* Apply immediately */
-    
+   
     pointer-events: none;
 }
 
