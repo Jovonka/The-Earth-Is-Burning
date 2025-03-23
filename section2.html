@@ -54,12 +54,12 @@
             transition: opacity 1s ease-in-out;
         }
         .circle-image {
-    position: relative;
-
-    transform: translate(80%, 60%);
-    width: 50%;
-    height: 50%;
-    border: none; /* Remove border-radius */
+    position: fixed;
+    top: 46%;
+    left: 46%;
+    transform: translate(-50%, -50%); /* Centers the element */
+    width: 10vw; /* Adjust based on screen size */
+    height: auto;
     display: none;
     cursor: pointer;
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
@@ -67,6 +67,7 @@
     /* Glow animation */
     animation: flashEffect 1s infinite alternate ease-in-out;
 }
+
 
 @keyframes flashEffect {
     0% {

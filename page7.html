@@ -55,16 +55,20 @@
         }
         
         .circle-image {
-            position: relative;
+    position: fixed;
+    top: 46%;
+    left: 37%;
+    transform: translate(-50%, -50%); /* Centers the element */
+    width: 10vw; /* Adjust based on screen size */
+    height: auto;
+    display: none;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  
+    /* Glow animation */
+    animation: flashEffect 1s infinite alternate ease-in-out;
+}
 
-transform: translate(55%, 0%);
-width: 50%;
-height: 50%;
- 
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-            animation: flashEffect 1s infinite alternate ease-in-out;
-            display: none;  /* Hide by default */
-        }
 
         @keyframes flashEffect {
             0% {
